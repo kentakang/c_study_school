@@ -1,32 +1,22 @@
 #include <stdio.h>
-
-int cnt = 0;
-
-void move(int from, int to)
+//1번 강찬 
+void hanoi(n, from, temp, to)
 {
-    printf("\n%d에서 %d로 이동", from, to);
-    cnt++;
-}
-
-void hanoi(int n, int from, int by, int to)
-{
-    if (n == 1)
-        move(from, to);
-    else
+	if(n == 1)
+		printf("원판 1을 %c에서 %c로 이동\n", from, to);
+	else
 	{
-        hanoi(n - 1, from, to, by);  
-        move(from, to);               
-        hanoi(n - 1, by, from, to);    
-    }
+		hanoi(n - 1, from, to, temp);
+		printf("원판 %d를 %c에서 %c로 이동\n", n, from, to);
+		hanoi(n - 1, temp, from, to);
+	}
 }
 
-void main(void)
+int main()
 {
-    int n;
-    printf("숫자를 입력하세영 : ");
-    scanf("%d", &n);
-    hanoi(n, 1, 2, 3);
-    printf("\n%d번 이동", cnt);
-    return 0;
+	int n;
+	printf("원판의 갯수 : ");
+	scanf("%d", &n);
+	hanoi(n, 'A', 'B', 'C');
+	return 0;
 }
-
