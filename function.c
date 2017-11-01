@@ -1,4 +1,5 @@
 #include <stdio.h>
+//1¹ø °­Âù 
 
 void haha1()
 {
