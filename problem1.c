@@ -23,9 +23,7 @@ int main()
 				cnt2++;
 			}
 		}
-		num1 = a[0] + a[1];
-		num2 = a[2] + a[3];
-		if(cnt2 >= 3 || num1 > num2)
+		if(cnt2 >= 3)
 		{
 			printf("%d -> 오름차순\n", i);
 			cnt++;

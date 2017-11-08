@@ -2,12 +2,18 @@
 
 int main()
 {
-	char word[10], checkPalindrome = 0;
-	int i;
+	char word[100], checkPalindrome = 0;
+	int i, cnt = 0;
 	scanf("%s", &word);
-	for(i = 0; i < 5; i++)
+	while(1)
 	{
-		if(word[i] != word[10 - i - 1])
+		if(word[cnt] == NULL)
+			break;
+		cnt++;
+	}
+	for(i = 0; i < cnt / 2; i++)
+	{
+		if(word[i] != word[cnt - i - 1])
 		{
 			checkPalindrome = 0;
 			break;
