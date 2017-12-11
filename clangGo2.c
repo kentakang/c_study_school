@@ -42,19 +42,60 @@ void showBoard()
 	}
 }
 
+int checkOmok(int row, int col)
+{
+	int i = 0, cnt = 0, maxCount = 0;
+	
+	for(i = 0; i < 19; i++)
+	{
+		if(goBoard[row - 1][i] == 'B' || goBoard[row - 1][i] == 'W')
+			cnt++;
+		else if(goBoard[i][col - 1] == 'B' || goBoard[i][col - 1] == 'W')
+			cnt++;
+		else if(goBoard[i][i] == 'B' || goBoard[i][i] == 'W')
+			cnt++;
+		else
+		{
+			if(cnt >= maxCount)
+				maxCount = cnt;
+			cnt = 0;
+		}
+	}
+	if(maxCount >= 5)
+		return 1;
+	else
+		return 0;
+}
+
 int main()
 {
 	int turn = 0, row, col;
 	initialize();
 	while(1)
 	{
-		putchar('>');
+		if(turn == 0)
+			printf("Èæ > ");
+		else
+			printf("¹é > ");
 		scanf("%d %d", &row, &col);
 		if(row == 0 || col == 0)
 			break; 
 		if(goBoard[row-1][col-1] == '-')
 		{
 			placeStone(turn, row, col);
+			if(checkOmok(row, col) == 1)
+			{
+				if(turn == 0)
+				{
+					printf("ÈæÀÎ ½Â\n");
+					break;
+				}
+				else
+				{
+					printf("¹éÀÎ ½Â\n");
+					break;
+				}
+			}
 			if(placeStone(turn, row, col) == 0)
 				break;
 			if(turn == 0)
