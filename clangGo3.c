@@ -32,20 +32,20 @@ int placeStone(int color, int row, int col)
 		return 0;
 }
 
-int computerPlay()
+void computerPlay()
 {
-	int rand = srand(time(NULL));
-	int row = rand % 19 + 1;
-	int col = rand % 19 + 1;
+	srand(time(NULL));
+	int row = rand() % 19;
+	int col = rand() % 19;
 	while(1)
 	{
-		
 		if(goBoard[row-1][col-1] == '-')
 		{
 			placeStone(1, row, col);
 			break;
 		}
 	}
+	printf("computer : > %d %d\n", row, col);
 }
 
 void showBoard()
@@ -60,18 +60,56 @@ void showBoard()
 	}
 }
 
+int checkOmok(int color, int row, int col)
+{
+	int i = 0, bCnt = 0, wCnt = 0, maxCount = 0;
+	
+	for(i = 0; i < 19; i++)
+	{
+		if(goBoard[row - 1][i] == 'B' || goBoard[i][col - 1] == 'B')
+			bCnt++;
+		else if(goBoard[i][i] == 'B')
+			bCnt++;
+		else if(goBoard[row - 1][i] == 'W' || goBoard[i][col - 1] == 'W')
+			wCnt++;
+		else if(goBoard[i][i] == 'W')
+			wCnt++;
+		else
+		{
+			if(color == 0)
+			{
+				if(bCnt >= maxCount);
+					maxCount = bCnt;
+				bCnt = 0;
+			}
+			else if(color == 1)
+			{
+				if(wCnt >= maxCount);
+					maxCount = wCnt;
+				wCnt = 0;
+			}
+			else
+				return 0;
+		}
+	}
+	if(maxCount >= 5)
+		return 1;
+	else
+		return 0;
+}
+
 int main()
 {
 	int turn = 0, row, col;
 	initialize();
 	while(1)
 	{
-		putchar('>');
-		scanf("%d %d", &row, &col);
-		if(row == 0 || col == 0)
-			break;
 		if(turn == 0)
 		{
+			putchar('>');
+			scanf("%d %d", &row, &col);
+			if(row == 0 || col == 0)
+				break;
 			if(goBoard[row-1][col-1] == '-')
 			{
 				placeStone(turn, row, col);
@@ -94,8 +132,11 @@ int main()
 		{
 			printf("unexpected error\n");
 		}
-		
-			
 		showBoard();
+		if(checkOmok(turn, row, col) == 1)
+		{
+			printf("ÇÃ·¹ÀÌ¾î ½Â\n");
+			break;
+		}
 	}
 }

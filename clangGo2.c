@@ -60,13 +60,15 @@ int checkOmok(int color, int row, int col)
 		{
 			if(color == 0)
 			{
-				if(bCnt >= maxCount);
-				maxCount = bCnt;
+				if(bCnt >= maxCount)
+					maxCount = bCnt;
+				bCnt = 0;
 			}
 			else if(color == 1)
 			{
 				if(wCnt >= maxCount);
-				maxCount = wCnt;
+					maxCount = wCnt;
+				wCnt = 0;
 			}
 			else
 				return 0;
